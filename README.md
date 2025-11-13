@@ -2,7 +2,7 @@
 > A simple command-line tool to fetch data from xiaobao system of THISDL.
 ---
 ## Demonstration
-[![asciicast](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK.svg)](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK)
+[![asciicast](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK.svg?t=13)](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK)
 ---
 ## Installation
 ### 1. Install a Chrome browser  
