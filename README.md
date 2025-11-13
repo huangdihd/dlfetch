@@ -1,5 +1,5 @@
 # DLFetch
-> A simple command line tool to fetch data from xiaobao system of THISDL.
+> A simple command-line tool to fetch data from xiaobao system of THISDL.
 
 ## Demonstration
 [![asciicast](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK.svg)](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK)
@@ -10,12 +10,13 @@ If you don't know the administrator password, please contact IT for help.
 ### 2. Clone this repository and change to the directory  
 Open a terminal and run command `git clone https://github.com/huangdihd/dlfetch` to clone it.
 Use command `cd dlfetch` to change to the directory.
-### 3. configure identity information  
+### 3. Configure identity information and add command alias  
 Edit and run this command:
 ```zsh
 cat <<EOF >> ~/.zshrc && source ~/.zshrc
 export THISDL_USERNAME="your username"
 export THISDL_PASSWORD="your password"
+alias dlfetch="python3 $(pwd)/main.py"
 EOF
 ```
 ### 4. Install dependencies
