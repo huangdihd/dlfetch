@@ -21,7 +21,7 @@ alias dlfetch="python3 $(pwd)/main.py"
 EOF
 ```
 ### 4. Install dependencies
-Use command `pip install -r requirements.txt` to install dependencies.
+Use command `python3 -m pip install -r requirements.txt` to install dependencies.
 ### 5. Enjoy it!
 Use command `dlfetch` to fetch your data anywhere!
 
