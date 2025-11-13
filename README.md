@@ -1,8 +1,10 @@
 # DLFetch
 > A simple command-line tool to fetch data from xiaobao system of THISDL.
-
+---
 ## Demonstration
 [![asciicast](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK.svg)](https://asciinema.org/a/8ZBfi32rtrvu7j6rKgNyY4DwK)
+
+---
 ## Installation
 ### 1. Install a Chrome browser  
 You can download it at [here](https://www.google.com/chrome)
@@ -22,4 +24,7 @@ EOF
 ### 4. Install dependencies
 Use command `pip install -r requirements.txt` to install dependencies.
 ### 5. Enjoy it!
-Use command `python3 ./main.py to fetch your data`
+Use command `dlfetch`to fetch your data anywhere!
+
+---
+**If you like this project, please give me a star!**
