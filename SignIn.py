@@ -42,4 +42,5 @@ def sign_in(cookie_path: str):
     with open(cookie_path, 'w') as cookie_file:
         cookie_file.write(str(driver.get_cookies()))
     print("Cookies saved.")
+    driver.quit()
     return driver.get_cookies()

@@ -93,7 +93,7 @@ realtime_GPA = requests.get(
 
 # 📅 获取课程表
 schedule = requests.post(
-    "https://thisdlstu.schoolis.cn/api/Schedule/ListScheduleByParent",
+    "https://rs.api.thisdlit.com/high_school",
     headers=headers,
     cookies=cookies_dict,
     json={
