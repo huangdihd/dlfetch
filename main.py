@@ -19,6 +19,20 @@ if os.path.exists(session_path):
     with open(session_path) as session_file:
         session_id = session_file.read()
 
+semesters = []
+
+if session_id:
+    semesters = requests.get(
+        "https://thisdlstu.schoolis.cn/api/School/GetSchoolSemesters",
+        headers=headers,
+        cookies={
+            "SessionId": session_id
+        }
+    ).json().get("data")
+
+    if not semesters:
+        session_id = None
+
 if not session_id:
     print("session_id are empty! Trying to sign in...")
     session_id = sign_in()
@@ -33,17 +47,14 @@ cookies_dict = {
     "SessionId": session_id
 }
 
-semesters = requests.get(
-    "https://thisdlstu.schoolis.cn/api/School/GetSchoolSemesters",
-    headers=headers,
-    cookies=cookies_dict
-).json().get("data")
-
 if not semesters:
-    print("No semesters found.")
-    print("Please try again later.")
-    open(session_path, 'w').close()
-    exit(1)
+    semesters = requests.get(
+        "https://thisdlstu.schoolis.cn/api/School/GetSchoolSemesters",
+        headers=headers,
+        cookies={
+            "SessionId": session_id
+        }
+    ).json().get("data")
 
 current_semester = next(s for s in semesters if s["isNow"])
 current_semester_id = current_semester["id"]
