@@ -8,37 +8,32 @@ from sys import exit
 import requests
 
 from SignIn import sign_in
-from constants import logo
+from constants import logo, headers
 from utils import parse_date_string, get_info_lines
 
-# 🎟️ Cookie 加载
-cookie_path = os.path.expanduser("~/.dlfetch_cookies")
-cookies = []
-print("Loading cookies...")
+session_path = os.path.expanduser("~/.dlfetch_session")
+print("Loading session...")
 
-if os.path.exists(cookie_path):
-    try:
-        with open(cookie_path) as cookie_file:
-            cookies = ast.literal_eval(cookie_file.read())
-    except SyntaxError:
-        cookies = []
-    if type(cookies) != list:
-        open(cookie_path, "w").close()
-        cookies = []
+session_id = None
 
-if not cookies:
-    print("Cookies are empty! Trying to sign in...")
-    cookies = sign_in(cookie_path)
+if os.path.exists(session_path):
+    with open(session_path) as session_file:
+        session_id = session_file.read()
 
-cookies_dict = {cookie["name"]: cookie["value"] for cookie in cookies}
+if not session_id:
+    print("session_id are empty! Trying to sign in...")
+    session_id = sign_in()
+    with open(session_path, 'w') as session_file:
+        session_file.write(session_id)
 
-headers = {
-    "User-Agent": "Mozilla/5.0",
-    "Accept": "application/json, text/plain, */*",
-    "Referer": "https://thisdlstu.schoolis.cn/",
+if not session_id:
+    print("Login failed.")
+    exit(1)
+
+cookies_dict = {
+    "SessionId": session_id
 }
 
-# 🏫 获取学期
 semesters = requests.get(
     "https://thisdlstu.schoolis.cn/api/School/GetSchoolSemesters",
     headers=headers,
@@ -46,9 +41,8 @@ semesters = requests.get(
 ).json().get("data")
 
 if not semesters:
-    print("Identification information is expired!")
-    open(cookie_path, "w").close()
-    print("Please run the script again.")
+    print("No semesters found.")
+    print("Please try again later.")
     exit(1)
 
 current_semester = next(s for s in semesters if s["isNow"])
