@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import argparse
 
+__version__ = "1.0.0"
+
 from cmd_info import cmd_info
 from cmd_tasks import cmd_tasks, cmd_submit
 from cmd_schedule import cmd_schedule
@@ -45,6 +47,7 @@ def main():
         epilog=EPILOG,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
+    parser.add_argument("-v", "--version", action="version", version=f"dlfetch {__version__}")
     sub = parser.add_subparsers(dest="command", metavar="")
 
     sub.add_parser("info", help="Neofetch-style semester overview (default)")
