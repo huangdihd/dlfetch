@@ -23,6 +23,22 @@ def parse_date_string(date_str):
     return dt_utc.astimezone(tzinfo)
 
 def get_info_lines(current_semester, unfinished, next_lesson, realtime_GPA, current_semester_id):
+    if next_lesson:
+        begin = parse_date_string(next_lesson["beginTime"])
+        end = parse_date_string(next_lesson["endTime"])
+        time_range = (
+            f"{begin.strftime('%H:%M')}-{end.strftime('%H:%M')}"
+            if begin and end else "time unavailable"
+        )
+        class_name = next_lesson.get("classInfo", {}).get("className", "Unknown")
+        location = next_lesson.get("playgroundName", "")
+        next_class_line = f"Next Class: {CYAN}{class_name} ({time_range})"
+        if location:
+            next_class_line += f" in {location}"
+        next_class_line += RESET
+    else:
+        next_class_line = f"Next Class: {CYAN}None today{RESET}"
+
     # 📋 右侧信息内容
     info_lines = [
         f"🏫  {BLUE}THISDL Student Info{RESET}",
@@ -30,6 +46,6 @@ def get_info_lines(current_semester, unfinished, next_lesson, realtime_GPA, curr
         f"Semester  : {current_semester['name']} ({current_semester_id})",
         f"GPA       : {GREEN}{realtime_GPA}{RESET}",
         f"Tasks     : {YELLOW}{len(unfinished)} not handed in(in last 12 tasks){RESET}",
-        f"Next Class: {CYAN}{next_lesson['classInfo']['className']} in {next_lesson['playgroundName']}{RESET}" if next_lesson else f"Next Class: {CYAN}None today{RESET}"
+        next_class_line
     ]
     return info_lines
